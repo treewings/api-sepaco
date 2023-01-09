@@ -43,8 +43,8 @@ export async function index(data: ISelect) {
     To_Char(To_date(P.dt_nascimento), 'YYYY-MM-DD') DT_NASCIMENTO,
     NULL TELEFONE,
     'I' TP_ATENDIMENTO,
-    To_Char(A.DT_ENTRADA, 'YYYY-MM-DD HH24:MI:SS') DT_ATENDIMENTO,
-    To_Char(A.DT_ENTRADA, 'YYYY-MM-DD HH24:MI:SS') HR_ATENDIMENTO,
+    To_Char(A.DT_ENTRADA, 'YYYY-MM-DD') DT_ATENDIMENTO,
+    To_Char(A.DT_ENTRADA, 'HH24:MI:SS') HR_ATENDIMENTO,
     NULL CD_ORI_ATE,
     NULL DS_ORI_ATE,
     NULL TP_ORIGEM,
@@ -61,7 +61,7 @@ export async function index(data: ISelect) {
      FROM TASY.WIGS_VI_ATENDIMENTO A
      INNER JOIN TASY.WINGS_VI_PACIENTE P ON P.CD_PESSOA_FISICA = A.CD_PESSOA_FISICA
      INNER JOIN TASY.WINGS_VI_SETOR S ON A.CD_SETOR_ATENDIMENTO = S.CD_SETOR
-     WHERE  A.NR_ATENDIMENTO = :attendanceId
+   WHERE  A.NR_ATENDIMENTO = :attendanceId 
    AND A.DT_ALTA IS NULL
     `
     log(`attendance_id: ${id}`)
