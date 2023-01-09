@@ -37,9 +37,9 @@ export async function index(data: ISelect) {
     from DBAMV.atendime where cd_atendimento = :attendanceId`;
 
     const sqlTasy = `
-    SELECT   
+    SELECT
     to_char(P.CD_PESSOA_FISICA) CD_PACIENTE,
-    P.nm_pessoa_fisica NM_PACIENTE,   
+    P.nm_pessoa_fisica NM_PACIENTE,
     To_Char(To_date(P.dt_nascimento), 'YYYY-MM-DD') DT_NASCIMENTO,
     NULL TELEFONE,
     'I' TP_ATENDIMENTO,
@@ -49,19 +49,19 @@ export async function index(data: ISelect) {
     NULL DS_ORI_ATE,
     NULL TP_ORIGEM,
     S.CD_SETOR CD_SETOR,
-    S.DS_SETOR DS_SETOR,                                                                            
+    S.DS_SETOR DS_SETOR,
     NULL CD_UNID_INT,
     NULL DS_UNID_INT,
-    A.CD_CONVENIO CD_CONVENIO,
-    NULL NM_CONVENIO,
-    NULL CD_LEITO,
-    NULL DS_LEITO,
-    NULL DS_RESUMO_LEITO,
+    A.CD_CONVENIO CD_CONVENIO,                                                                                           
+    A.DS_CONVENIO NM_CONVENIO,
+    A.CD_LEITO,
+    'DS_LEITO' DS_LEITO,
+    'DS_RESUMO_LEITO' DS_RESUMO_LEITO,
     'O' TP_OCUPACAO
      FROM TASY.WIGS_VI_ATENDIMENTO A
      INNER JOIN TASY.WINGS_VI_PACIENTE P ON P.CD_PESSOA_FISICA = A.CD_PESSOA_FISICA
      INNER JOIN TASY.WINGS_VI_SETOR S ON A.CD_SETOR_ATENDIMENTO = S.CD_SETOR
-   WHERE  A.NR_ATENDIMENTO = :attendanceId
+     WHERE  A.NR_ATENDIMENTO = :attendanceId
    AND A.DT_ALTA IS NULL
     `
     log(`attendance_id: ${id}`)
